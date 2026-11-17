@@ -1,0 +1,10 @@
+strain,species,gram_positive,biofilm_former_cra,resistance_note,tetracycline_zone_mm
+S. aureus ATCC 29213,S. aureus,1,1,reference strain,34.33
+S. aureus ATCC 1026,S. aureus,1,1,,36.00
+S. aureus ATCC 976,S. aureus,1,1,,32.67
+E. faecalis ATCC 29212,E. faecalis,1,0,reference strain,15.00
+E. faecalis ATCC 51299,E. faecalis,1,1,vancomycin-resistant (VRE),12.00
+K. pneumoniae ATCC 700603,K. pneumoniae,0,1,ESBL producer,9.33
+E. coli ATCC 35218,E. coli,0,1,beta-lactamase producer,12.33
+E. coli ATCC 25922,E. coli,0,0,reference strain,20.00
+P. aeruginosa ATCC 27853,P. aeruginosa,0,0,reference strain,9.67
