@@ -182,4 +182,35 @@ fig.tight_layout()
 fig.savefig("figures/3_biofilm_dose_response.png", dpi=150)
 plt.close(fig)
 
+# ---------------------------------------------------------------------------
+# 6. Try your own strain
+#    Change the values below for the bacterium you want to test, then run.
+#    You need three cheap pieces of information about it:
+#      - Gram positive (1) or Gram negative (0)
+#      - Congo red biofilm test positive (1) or negative (0)
+#      - the zone (mm) the parent compound gives at 1, 5 and 10 mg/mL
+#    The model then estimates the nanoparticle zone at the same doses.
+#    It learned from only 9 strains: treat the answer as a rough guess
+#    (typical error about 4 mm), never as a result.
+# ---------------------------------------------------------------------------
+my_strain = {
+    "name": "Example: clinical MRSA isolate",
+    "gram_positive": 1,
+    "biofilm_former_cra": 1,
+    "compound_zone_mm": {1: 12.0, 5: 15.0, 10: 19.0},
+}
+
+model = LinearRegression().fit(data[FEATURES], data[TARGET])
+new = pd.DataFrame({
+    "log10_conc": np.log10(list(my_strain["compound_zone_mm"].keys())),
+    "gram_positive": my_strain["gram_positive"],
+    "biofilm_former_cra": my_strain["biofilm_former_cra"],
+    "compound_zone_mm": list(my_strain["compound_zone_mm"].values()),
+})
+guess = np.clip(model.predict(new[FEATURES]), 0, None)
+print(f"\nEstimated nanoparticle zones for {my_strain['name']}:")
+for dose, g in zip(my_strain["compound_zone_mm"].keys(), guess):
+    print(f"  {dose:>4} mg/mL: about {g:.0f} mm (+/- 4 mm)")
+print("Test it in the lab: if the measured zones differ a lot, add the strain to the data files.")
+
 print("\nDone. Figures saved in figures/.")
